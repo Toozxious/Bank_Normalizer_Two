@@ -7,30 +7,21 @@ package normalizer_two;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
+import dk.cphbusiness.connection.ConnectionCreator;
 import java.io.IOException;
 import org.json.JSONObject;
 import org.json.XML;
 
-/**
- *
- * @author Nicklas Hemmingsen
- */
 public class Normalizer_Two {
 
     private static final String IN_QUEUE = "bank_two_normalizer";
     private static final String OUT_QUEUE = "aggregator";
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setUsername("nicklas");
-        factory.setPassword("cph");
-        factory.setHost("datdb.cphbusiness.dk");
-
-        Connection connection = factory.newConnection();
-        com.rabbitmq.client.Channel channelIn = connection.createChannel();
-        com.rabbitmq.client.Channel channelOut = connection.createChannel();
+        ConnectionCreator creator = ConnectionCreator.getInstance();
+        com.rabbitmq.client.Channel channelIn = creator.createChannel();
+        com.rabbitmq.client.Channel channelOut = creator.createChannel();
         channelIn.queueDeclare(IN_QUEUE, false, false, false, null);
         channelOut.queueDeclare(OUT_QUEUE, false, false, false, null);
 
