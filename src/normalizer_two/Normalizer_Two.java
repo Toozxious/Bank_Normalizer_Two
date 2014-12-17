@@ -15,8 +15,8 @@ import org.json.XML;
 
 public class Normalizer_Two {
 
-    private static final String IN_QUEUE = "bank_two_normalizer";
-    private static final String OUT_QUEUE = "aggregator";
+    private static final String IN_QUEUE = "bank_two_normalizer_gr1";
+    private static final String OUT_QUEUE = "aggregator_gr1";
 
     public static void main(String[] args) throws IOException, InterruptedException {
         ConnectionCreator creator = ConnectionCreator.getInstance();
@@ -27,9 +27,6 @@ public class Normalizer_Two {
 
         QueueingConsumer consumer = new QueueingConsumer(channelIn);
         channelIn.basicConsume(IN_QUEUE, true, consumer);
-//        String testMessage = "{\"ssn\":1605789787,\"loanAmount\":10.0,\"loanDuration\":360,\"rki\":false}"; //test sender besked til sig selv.
-//        String testMessage = "{\"ssn\":1605789787,\"creditScore\":598,\"loanAmount\":10.0,\"loanDuration\":360}";
-//        channel.basicPublish("", QUEUE_NAME, null, testMessage.getBytes()); // test
 
         while (true) {
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
