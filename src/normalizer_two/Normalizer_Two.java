@@ -42,7 +42,7 @@ public class Normalizer_Two {
     private static String translateMessage(QueueingConsumer.Delivery delivery) {
         String message = new String(delivery.getBody());
         JSONObject json = new JSONObject(message);
-        json.append("bankName", "JASON the bank of incredible spellingness");
+        json.append("bankName", "JASON bank");
         String xml = "<LoanResponse>" + XML.toString(json) + "</LoanResponse>";
         System.out.println(xml);
         return xml;
